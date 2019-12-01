@@ -4,7 +4,7 @@ from django.db import models
 
 class Layer(models.Model):
     #URL for saving and loading the image
-    url = models.URLField(max_length=1000000, default="")
+    url = models.URLField(default="")
 
     #Layer (0-9)
     layerNumber = models.IntegerField(default=0)
