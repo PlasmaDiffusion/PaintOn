@@ -1,0 +1,43 @@
+<html>
+        {% include 'layout.html' with showLogout=True %}
+        {% load static %}
+        <script  src="{% static 'java/PrepareCanvasLoad.js' %}"></script>
+        <script src="{% static 'java/SaveAndLoad.js' %}"></script>
+
+<body>
+        <div id="bg">
+        <p>
+        <a href= "{% url 'paint:defaultPage' %}"> Back </a>
+        </p>
+
+        <form action="{% url 'paint:search' %}" id="searchForm" method="GET">
+
+        {% csrf_token %}
+        Name: <input name="searchName" type="text"/>
+        Creator: <input name="searchUser" type="text"/>
+        Sort By Most Recent: <input name="sort" type="radio" value="date"/>
+        Sort By Most Popular: <input name="sort" type="radio" value="likes"/>
+        <input value="Search" type="submit"/>
+
+        </form>
+
+        
+</div>
+
+        <h1>
+                        
+                {% for picture in pictures %}
+                
+                {% include 'pictureListTemplate.html' with count=pictures.count home=False %}
+
+                
+
+                {% endfor %}
+
+        
+        </h1>
+
+
+</body>
+
+</html>

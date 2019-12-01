@@ -1,0 +1,52 @@
+<html>
+        {% include 'layout.html' with showLogout=True %}
+        {% load static %}
+        <script  src="{% static 'java/PrepareCanvasLoad.js' %}"></script>
+        <script src="{% static 'java/SaveAndLoad.js' %}"></script>
+
+<body>
+
+        <h3 style="margin: auto;">
+                <a href= "{% url 'paint:canvasView' '0' '0' %}"> New Drawing </a>
+                <br>
+                <a href= "{% url 'paint:search' %}"> Drawing Search </a>
+        </h3>
+
+        <br>
+
+        <h1>
+                Your Drawings:
+
+                
+                {{pictures.count}}
+
+
+                {% for picture in pictures %}
+                
+                        {% include 'pictureListTemplate.html' with count=pictures.count home=True %}
+
+
+                {% endfor %}
+
+
+                
+        </h1>
+
+
+        <h1>
+                Liked Drawings:
+
+                {{likedPictures.count}}
+
+
+                {% for picture in likedPictures %}
+
+                        {% include 'pictureListTemplate.html' with count=likedPictures.count home=True %}
+
+                {% endfor %}
+
+        </h1>
+
+</body>
+
+</html>

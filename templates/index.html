@@ -1,0 +1,45 @@
+<html>
+        {% include 'layout.html' %}
+
+<body>
+
+        <h1> PaintOn </h1>
+
+        <h2>
+
+        <form action="{% url 'paint:login' %}" id="signUp" method="POST">
+
+        {% csrf_token %}
+        Username
+        <input name="username" type="text"/>
+        Password
+        <input name="password" type="password"/>
+        <br>
+        <input value="Login" type="submit"/>
+
+        </form>
+    
+        
+        <form action = "{% url 'paint:signUp' %}" id="signUp"> <input type="submit" value="Sign Up"/></form>
+
+
+        {% if form.errors %}
+        <p>Your username and password didn't match.</p>
+        {% endif %}
+
+        {% load static %}
+        <img src="{% static 'images/pencil.png' %}" />
+        <img src="{% static 'images/brush.png' %}" />
+        <img src="{% static 'images/line.png' %}" />
+        <img src="{% static 'images/square.png' %}" />
+        <img src="{% static 'images/circle.png' %}" />
+        
+
+        {{msg}}
+
+
+        </h2>
+
+</body>
+
+</html>

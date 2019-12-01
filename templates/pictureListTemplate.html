@@ -1,0 +1,54 @@
+
+{% if picture.private is False or home is True %}
+
+
+{% if forloop.counter0|divisibleby:2  %}
+<div class="container">
+       <div class="row">
+{% endif %}
+         <div class="col-sm">
+     
+
+              
+                        <h2 style="width: 100%;">
+
+                        
+                
+                        {% for layer in picture.layers.all %}        
+                        <p class="{{picture.name}}" value={{layer.layerNumber}} style="display: none;">{{layer.url}}</p>
+                        
+                        {% endfor %}
+
+                        <b>{{picture.name}}</b> <br>
+                        <i>By: {{picture.owner}}</i> <br>
+                        {{picture.date}}
+                     
+                        {% if count > 4 %}
+                            {% include 'canvasTemplate.html' with canvasSize=256 %}
+                        {% else %}
+                            {% include 'canvasTemplate.html' with canvasSize=512 %}
+                        {% endif %}
+                
+                        {% ifequal picture.owner user %}
+                        <a href="{% url 'paint:canvasView' picture.name picture.owner %}"> Load </a>
+                        <a href="{% url 'paint:deleteDrawing' picture.id picture.owner  %}" id="deleteLink"> Remove </a>
+                        <p id = "likes">{{picture.likes}} likes</p>
+                        {% else %}
+                            {% if picture.othersCanEdit %}
+                            <a href="{% url 'paint:canvasView' picture.name picture.owner %}"> Load </a>
+                            {% endif %}
+                        <a href="{% url 'paint:likeDrawing' picture.name picture.owner picture.id %}"> Like </a>
+                        <p id = "likes">{{picture.likes}} likes</p>
+                        {% endifequal %}
+
+                        </h2>
+
+                     
+              </div>
+{% ifnotequal forloop.counter0|divisibleby:2 True %}
+       </div>
+</div>
+{% endifnotequal %}
+
+
+{% endif %}

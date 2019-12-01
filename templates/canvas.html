@@ -1,0 +1,121 @@
+<html>
+        {% include 'layout.html' with showLogout=False %}
+        {% load static %}
+        <script  src="{% static 'java/paintCanvas.js' %}"></script>
+        <script src="{% static 'java/CanvasManager.js' %}"></script>
+        <script src="{% static 'java/SaveAndLoad.js' %}"></script>
+        <link rel="manifest" href="{% static 'manifest/manifest.json' %}">
+
+<body>
+        <div id="container">
+        <!-- Each canvas here is it's own layer. -->
+        <canvas id="Layer 1" value=1 width="512" height="512" style="border:1px solid #000000;
+        position: absolute; left: 20%; top: 7%; z-index: 0;">
+
+        </canvas>
+
+        <canvas id="Layer 2" value=2 width="512" height="512" style="border:1px solid #000000;
+        position: absolute; left: 20%; top: 7%; z-index: 1;">
+
+        </canvas>
+
+        <canvas id="Layer 3" value=3 width="512" height="512" style="border:1px solid #000000;
+        position: absolute; left: 20%; top: 7%; z-index: 2;">
+
+        </canvas>
+
+        <!-- Invisible canvas urls for loading -->
+        <div id ="loaders">
+        {% for url in loader.imageUrls %}
+                <p style="display: none;"> {{url}} </p>
+        {% endfor %}
+        </div>
+        
+        <!-- Save button and form here -->
+
+        <form id="SaveForm" method="POST" style="position: fixed; left: 10%; top: 10%; z-index: 3; display: none;"> <input type="submit" value="Save"/>    
+        {% csrf_token %}
+        {{ form.as_ul }}
+        </form>
+
+
+        
+        <!-- Layer buttons here -->
+
+        <div id="layerBtns" style="position: fixed; left: 15%;  z-index: 2;">
+        
+        
+        <button class="Exit">Exit</button>
+        
+        <button class="Save"> Save </button>
+
+        <button class="LayerAdd"> + </button>
+        
+
+        </div>
+
+        
+        <!-- Toolbox buttons here. (Brush sizes, pencil, line tool, etc.) -->
+
+
+        <div id="Toolbox" style="position: fixed; left: 16; top: 5%;">
+
+        <div id ="brushSizeBox" style="position: absolute; left: 25%; top: 196;">
+                <div class="slidecontainer">
+                        <input type="range" min="1" max="10" value="2" class="slider" id="brushSize">
+                </div>
+                <div id ="brushSizeText"> Size: 2px </div> 
+        </div>
+
+        <div id ="brushAlphaBox">
+                <div class="slidecontainer">
+                        <input type="range" min="0" max="10" value="10" class="slider" id="alpha">
+                </div>
+                <div id ="alphaText"> Alpha: 1 </div> 
+        </div>
+
+        <button class="Tool" value=0 id="Pencil" style="position: absolute; left: 25%; top: 0; margin: 4px;">
+                <br></button>
+
+        <button class="Tool" value=1 id="Brush" style="position: absolute; left: 25%; top: 32; margin: 4px;">
+                <br></button>
+
+        <button class="Tool" value=2 id="Line" style="position: absolute; left: 25%; top: 64; margin: 4px;">
+                <br></button>
+
+        <button class="Tool" value=3 id="Box" style="position: absolute; left: 25%; top: 96; margin: 4px;">
+                <br></button>
+
+        <button class="Tool" value=4 id="Elipse" style="position: absolute; left: 25%; top: 128; margin: 4px;">
+                <br></button>
+                
+        <button class="Tool" value=5 id="Flood" style="position: absolute; left: 25%; top: 160; margin: 4px;">
+                <br></button>
+
+        </div>
+
+        <!-- Colour Pallette buttons here -->
+
+        <div id ="Pallette" style="position: fixed; left: 16; top: 55%;">
+        
+        {% include 'colourPallete.html' %}
+        
+        
+                
+        <div id="tickBoxText" style="position: absolute; left: -2; top: 168; width:50%">Fill
+        <input type="checkbox" checked=true id="fillCheckbox" name="fill" value="Fill" style="position: absolute; left: 0; top: 16;"> </input>
+        <button class="FillOrOutline" id="fillColUI" style="position: absolute; left: 12; top: 12; width:50%"></button>
+        </div>
+
+        <div id="tickBoxText" style="position: absolute; left: 50%; top: 168; font-size: 8; width:50%">Outline
+        <input type="checkbox" checked=true id="outlineCheckbox" name="outline" value="Outline" style="position: absolute; left: 0; top: 16;"> </input>
+        <button class="FillOrOutline" id="outlineColUI" style="position: absolute; left: 12; top: 12; width:50%"></button>
+        </div>
+        
+        </div>
+
+        </div>
+</body>
+
+</html>
+
