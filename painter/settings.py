@@ -127,7 +127,7 @@ USE_TZ = True
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = os.path.join(BASE_DIR, 'paint/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
