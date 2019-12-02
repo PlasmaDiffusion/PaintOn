@@ -57,7 +57,7 @@ ROOT_URLCONF = 'painter.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\Users\Scott\Documents\School\CS50 Web\project0\project0\project_final\templates'],
+        'DIRS': [os.path.join(BASE_DIR,'/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
