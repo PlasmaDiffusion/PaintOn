@@ -7,19 +7,29 @@
         <link rel="manifest" href="{% static 'manifest/manifest.json' %}">
 
 <body>
+        
+
         <div id="container">
+
+                <h2 id = "gallery" style="position: absolute; left: 14%; top: 0%; width:700; height: 660;">
+                </h2>
+
+                <div id ="canvasBack" style="position: absolute; left: 20%; top: 7%; width:512; height: 512;">
+                </div>
+
+
         <!-- Each canvas here is it's own layer. -->
-        <canvas id="Layer 1" value=1 width="512" height="512" style="border:1px solid #000000;
+        <canvas id="Layer 1" value=1 width="512" height="512" style="border:2px solid #000000;
         position: absolute; left: 20%; top: 7%; z-index: 0;">
 
         </canvas>
 
-        <canvas id="Layer 2" value=2 width="512" height="512" style="border:1px solid #000000;
+        <canvas id="Layer 2" value=2 width="512" height="512" style="border:2px solid #000000;
         position: absolute; left: 20%; top: 7%; z-index: 1;">
 
         </canvas>
 
-        <canvas id="Layer 3" value=3 width="512" height="512" style="border:1px solid #000000;
+        <canvas id="Layer 3" value=3 width="512" height="512" style="border:2px solid #000000;
         position: absolute; left: 20%; top: 7%; z-index: 2;">
 
         </canvas>
@@ -57,8 +67,8 @@
         
         <!-- Toolbox buttons here. (Brush sizes, pencil, line tool, etc.) -->
 
-
-        <div id="Toolbox" style="position: fixed; left: 16; top: 5%;">
+        
+        <div id="Toolbox" style="position: fixed; left: 16; top: 5%; background: rgb(184, 184, 184);">
 
         <div id ="brushSizeBox" style="position: absolute; left: 25%; top: 196;">
                 <div class="slidecontainer">
@@ -96,7 +106,7 @@
 
         <!-- Colour Pallette buttons here -->
 
-        <div id ="Pallette" style="position: fixed; left: 16; top: 55%;">
+        <div id ="Pallette" style="position: fixed; left: 16; top: 55%; background: rgb(184, 184, 184);">
         
         {% include 'colourPallete.html' %}
         
@@ -115,6 +125,8 @@
         </div>
 
         </div>
+
+     
 </body>
 
 </html>

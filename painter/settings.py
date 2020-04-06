@@ -26,6 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
+
 ALLOWED_HOSTS = ['painton.herokuapp.com','127.0.0.1']
 
 
@@ -126,14 +127,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images) #comment STATICFILES_DIRS for debug also collectstatic is a command to call for release
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, 'static'),
+#)
 
 
 # Heroku: Update database configuration from $DATABASE_URL.
