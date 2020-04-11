@@ -4,17 +4,18 @@
         <script  src="{% static 'java/paintCanvas.js' %}"></script>
         <script src="{% static 'java/CanvasManager.js' %}"></script>
         <script src="{% static 'java/SaveAndLoad.js' %}"></script>
+        <script src="{% static 'java/jscolor.js' %}"></script>
         <link rel="manifest" href="{% static 'manifest/manifest.json' %}">
 
 <body>
         
 
-        <div id="container">
+        <div id="container"onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
 
                 <h2 id = "gallery" style="position: absolute; left: 14%; top: 0%; width:700; height: 660;">
                 </h2>
 
-                <div id ="canvasBack" style="position: absolute; left: 20%; top: 7%; width:512; height: 512;">
+                <div id ="canvasBack" style="position: absolute; left: 20%; top: 7%; width:514; height: 514;">
                 </div>
 
 
@@ -52,7 +53,7 @@
         
         <!-- Layer buttons here -->
 
-        <div id="layerBtns" style="position: fixed; left: 15%;  z-index: 2;">
+        <div id="layerBtns" style="position: fixed; left: 25%; top: 2%;  z-index: 2;">
         
         
         <button class="Exit">Exit</button>
@@ -68,7 +69,7 @@
         <!-- Toolbox buttons here. (Brush sizes, pencil, line tool, etc.) -->
 
         
-        <div id="Toolbox" style="position: fixed; left: 16; top: 5%; background: rgb(184, 184, 184);">
+        <div id="Toolbox" style="position: fixed; left: 16; top: 5%;">
 
         <div id ="brushSizeBox" style="position: absolute; left: 25%; top: 196;">
                 <div class="slidecontainer">
@@ -106,10 +107,9 @@
 
         <!-- Colour Pallette buttons here -->
 
-        <div id ="Pallette" style="position: fixed; left: 16; top: 55%; background: rgb(184, 184, 184);">
+        <div id ="Pallette" style="position: fixed; left: 16; top: 55%;">
         
         {% include 'colourPallete.html' %}
-        
         
                 
         <div id="tickBoxText" style="position: absolute; left: -2; top: 168; width:50%">Fill

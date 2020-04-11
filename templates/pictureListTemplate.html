@@ -40,7 +40,11 @@
                             {% if picture.othersCanEdit %}
                             <a href="{% url 'paint:canvasView' picture.name picture.owner %}"> Load </a> &nbsp;
                             {% endif %}
-                        <a href="{% url 'paint:likeDrawing' picture.name picture.owner picture.id %}"> Like </a>
+                        {% if home is True %}
+                            <a href="{% url 'paint:likeDrawing' picture.name picture.owner picture.id %}"> Unlike </a>
+                        {% else %}
+                            <a href="{% url 'paint:likeDrawing' picture.name picture.owner picture.id %}"> Like </a>
+                        {% endif %}
                         <p id = "likes">{{picture.likes}} likes</p>
                         {% endifequal %}
 

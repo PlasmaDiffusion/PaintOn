@@ -45,7 +45,7 @@ h1 {
   font-size: 36px;
   border: 4px;
   text-shadow: 2px 2px black;
-  background-image: linear-gradient(to right top, #d1cd6b, #dad67e, #e3df91, #ebe8a4, #f4f1b7, #f7f3b7, #f9f4b6, #fcf6b6, #fbf1a1, #faeb8c, #fbe576, #fbdf5f); }
+  background: linear-gradient(to bottom right, #ffdf99 0%, #cc6600 100%); }
 
 p {
   font-size: 12px;
@@ -61,6 +61,9 @@ a {
   background-color: #d3b408;
   outline-width: 4px;
   border-radius: 4px; }
+
+p a {
+  padding: 4px; }
 
 a:hover {
   color: white;
@@ -109,14 +112,42 @@ ul {
 .Tool {
   width: 50%; }
 
+.LayerAdd {
+  background-color: #dd6749;
+  border: solid 1px; }
+
+.LayerAdd:hover {
+  background-color: #a2391e;
+  transition: background-color 0.5s;
+  border: solid 1px; }
+
+.LayerChange {
+  background-color: #ddc249;
+  border: solid 1px; }
+
+.LayerChange:hover {
+  background-color: #a28a1e;
+  transition: background-color 0.5s;
+  border: solid 1px; }
+
+.Exit, .Save {
+  background-color: #dd8449;
+  border: solid 1px; }
+
+.Exit:hover, .Save:hover {
+  background-color: #a2531e;
+  transition: background-color 0.5s;
+  border: solid 1px; }
+
 #Pallette {
   position: fixed;
   left: 16;
   top: 284;
   width: 10%;
   height: 200px;
-  border: dimgrey;
-  border-style: dashed; }
+  background-color: #c78e23;
+  border: #800505;
+  border-style: solid; }
 
 #Toolbox {
   position: fixed;
@@ -124,13 +155,14 @@ ul {
   top: 94;
   width: 10%;
   height: 232px;
-  border: dimgrey;
-  border-style: dashed; }
+  background-color: #c78e23;
+  border: #800505;
+  border-style: solid; }
 
 #brushSizeBox, #brushAlphaBox, #tickBoxText {
   background-color: dimgray;
   border: #313131;
-  border-style: dashed; }
+  border-style: solid; }
 
 #brushSize, #alpha {
   width: 100%;

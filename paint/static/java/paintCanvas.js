@@ -72,9 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 canvasManager.brushColour = button.value;
                 var otherBtn = document.getElementById("fillColUI");
                 otherBtn.style.backgroundColor = button.value;
-
+                
                 }
-                else //Change change outline colour
+                else //Change outline colour
                 {
                 //Change it in the canvas manager and then change it for the UI button too.
                 canvasManager.outlineColour = button.value;
@@ -94,11 +94,27 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (button.className == "FillOrOutline")
         {
             button.onclick = () => {
+
+                //Change to the fill colour or outline colour depending on id
                 canvasManager.pickingFillColour = (button.id == "fillColUI");
+                
+                //Change outline to show it's selected
+                if (canvasManager.pickingFillColour) 
+                {
+                    button.style.border= "dotted yellow 1px";
+                    document.getElementById("outlineColUI").style.border= "solid black 1px";
+                }
+                else
+                {
+                    button.style.border= "dotted yellow 1px";
+                    document.getElementById("fillColUI").style.border= "solid black 1px";
+                }
+                
             }
             
-            //Both colours default to black
+            //Both colours default to black. The fill button is selected by default.
             button.style.backgroundColor = "000000";
+            if (button.id == "fillColUI") button.style.border= "dotted yellow 1px";
         }
         //Exit with a prompt if the user wants to leave this page.
         else if (button.className == "Exit")
