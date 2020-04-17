@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         //Button that changes your drawing tool
-        else if (button.className == "Tool")
+        else if (button.className == "Tool" || button.className == "Tool_Small")
         {
             
             button.onclick = () => {

@@ -112,6 +112,9 @@ ul {
 .Tool {
   width: 50%; }
 
+.Tool_Small {
+  width: 25%; }
+
 .LayerAdd {
   background-color: #dd6749;
   border: solid 1px; }
@@ -232,7 +235,7 @@ input[type=submit]:hover {
     position: absolute;
     left: 100%;
     top: 196; } }
-#Pencil, #Brush, #Line, #Box, #Elipse, #Flood, #Erase {
+#Pencil, #Brush, #Line, #Box, #Elipse, #Replace, #Flood, #Erase {
   background-repeat: no-repeat;
   background-origin: padding-box;
   background-position: center; }
@@ -252,8 +255,11 @@ input[type=submit]:hover {
 #Elipse {
   background-image: url("/static/images/Circle.png"); }
 
-#Flood {
+#Replace {
   background-image: url("/static/images/Replace.png"); }
+
+#Flood {
+  background-image: url("/static/images/Bucket.png"); }
 
 #Erase {
   background-image: url("/static/images/Erasure.png"); }

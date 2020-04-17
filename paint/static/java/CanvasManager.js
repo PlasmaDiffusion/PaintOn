@@ -6,7 +6,7 @@ class CanvasManager
     {
         //Drawing related variables
         this.drawingTool = 0;
-        this.brushSize = 1;
+        this.brushSize = 6;
         this.brushColour = '#000000';
         this.outlineColour = '#000000';
         this.fill = true;
@@ -284,7 +284,14 @@ class CanvasManager
                 }
                 break;
 
-                case 5: //Replace
+                case 5: //Fill
+                if (mouseState == 2)
+                {
+                    this.FillColours(ctx, mousePos, canvasSize);
+                }
+                break;
+
+                case 6: //Replace
                 if (mouseState == 2)
                 {
                     this.ReplaceColours(ctx, mousePos, canvasSize);
@@ -295,7 +302,8 @@ class CanvasManager
         
     }
 
-    ReplaceColours(ctx, mousePos, canvasSize) {
+    ReplaceColours(ctx, mousePos, canvasSize) 
+    {
         let colourToReplace = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
         //First convert the brush colour hex string to an RGBA array.
         let newColourRGB = [
@@ -309,18 +317,18 @@ class CanvasManager
         //Get the image to iterate through the entire image pixel by pixel...
         let pixels = ctx.getImageData(0, 0, canvasSize.width, canvasSize.height);
         
-        let maxHeightIndex = canvasSize.height * 4;
+        let maxHeightIndex = canvasSize.height;
         let maxWidthIndex = canvasSize.width * 4;
 
         for (let j = 0; j <= maxHeightIndex; j += 1) {
             for (let i = 0; i <= maxWidthIndex; i += 4) //+ 4 because 0...3 for colour index values
             {
-                if (this.CheckIfInColourThreshold(i, j, pixels, colourToReplace, canvasSize, 20)) {
+                if (this.CheckIfInColourThreshold(i, j, pixels, colourToReplace, canvasSize, 70)) {
                     //...then make it the new colour.
-                    pixels.data[i + (j * canvasSize.width)] = newColourRGB[0];
-                    pixels.data[i + (j * canvasSize.width) + 1] = newColourRGB[1];
-                    pixels.data[i + (j * canvasSize.width) + 2] = newColourRGB[2];
-                    pixels.data[i + (j * canvasSize.width) + 3] = newColourRGB[3];
+                    pixels.data[i + (j * canvasSize.width * 4)] = newColourRGB[0];
+                    pixels.data[i + (j * canvasSize.width * 4) + 1] = newColourRGB[1];
+                    pixels.data[i + (j * canvasSize.width * 4) + 2] = newColourRGB[2];
+                    pixels.data[i + (j * canvasSize.width * 4) + 3] = newColourRGB[3];
                     //console.log("Replacing");
                     //ctx.putImageData(pixels, i, (j*canvasSize.width));
                 }
@@ -330,19 +338,157 @@ class CanvasManager
         ctx.putImageData(pixels, 0, 0);
     }
 
+    FillColours(ctx, mousePos, canvasSize) {
+        let colourToReplace = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+        //First convert the brush colour hex string to an RGBA array.
+        let newColour = [
+            parseInt(this.brushColour.substr(1, 2), 16),
+            parseInt(this.brushColour.substr(3, 2), 16),
+            parseInt(this.brushColour.substr(5, 2), 16),
+            255
+        ];
+
+        //Get the image to iterate through the entire image pixel by pixel...
+        var pixels = ctx.getImageData(0, 0, canvasSize.width, canvasSize.height);
+        
+        let maxHeight = canvasSize.height;
+        let maxWidth = canvasSize.width * 4;
+
+        //this.FloodFill(Math.floor(mousePos.x) * 4, Math.floor(mousePos.y), pixels, colourToReplace, canvasSize, 0, newColour)
+
+        var i = Math.floor(mousePos.x) * 4; //x4 Because it goes rgba for one pixel
+        var j = Math.floor(mousePos.y); //Rows get multiplied later
+        console.log(pixels);
+
+        console.log(i + "," + j);
+        //Is the target colour is the same as the replacement colour, do nothing
+        if (newColour[0] == colourToReplace[0]
+            && newColour[1] == colourToReplace[1]
+            && newColour[2] == colourToReplace[2]
+            && newColour[3] == colourToReplace[3])
+        {
+            console.log("Target colour same as replacement colour.");
+                return;
+        }
+        //Else is the  pixel not equal to the target colour? We don't want to colour over the wrong colour.
+        else if (pixels.data[i + (j * canvasSize.width)] != colourToReplace[0]
+        && pixels.data[i + (j * canvasSize.width) + 1] != colourToReplace[1]
+        && pixels.data[i + (j * canvasSize.width) + 2] != colourToReplace[2]
+        && pixels.data[i + (j * canvasSize.width) + 3] != colourToReplace[3])
+        {
+            /*console.log("The pixel is not the target colour.");
+            console.log(pixels.data[i + (j * canvasSize.width)] + "," +
+            pixels.data[i + (j * canvasSize.width) + 1] + "," +
+            pixels.data[i + (j * canvasSize.width) + 2] + "," + 
+            pixels.data[i + (j * canvasSize.width) + 3]);*/
+
+                return;
+        }
+        //Else colour it in
+        else
+        {
+            pixels.data[i + (j * canvasSize.width)] = newColour[0];
+            pixels.data[i + (j * canvasSize.width) + 1] = newColour[1];
+            pixels.data[i + (j * canvasSize.width) + 2] = newColour[2];
+            pixels.data[i + (j * canvasSize.width) + 3] = newColour[3];
+            //ctx.putImageData(pixels, i/4, j, 0, 0, 1, 1);
+        }
+
+        var fillQueue = new Queue();
+        fillQueue.enqueue([i,j])
+
+        while (!fillQueue.isEmpty())
+        {
+            let pixelIndexArray = fillQueue.dequeue();
+
+            i = pixelIndexArray[0];
+            j = pixelIndexArray[1];
+        
+            //if (fillQueue.getLength() == 10)
+            //console.log(fillQueue.peek());
+
+            //Go again in each direction
+            if (((i + 4) < maxWidth) && this.CheckIfInColourThreshold(i + 4, j, pixels, colourToReplace, canvasSize, 0))
+            {
+                //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
+                pixels = this.ReplacePixel(i + 4, j, pixels, newColour, canvasSize, ctx)
+                fillQueue.enqueue([i+4, j]);
+            }
+            if ((i - 4  >=0)  && this.CheckIfInColourThreshold(i - 4, j, pixels, colourToReplace, canvasSize, 0))
+            {
+                //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
+                pixels = this.ReplacePixel(i - 4, j, pixels, newColour, canvasSize, ctx)
+                fillQueue.enqueue([i - 4, j]);
+            }
+            if ((j + 1) < (maxHeight) && this.CheckIfInColourThreshold(i, j+1, pixels, colourToReplace, canvasSize, 0))
+            {
+                //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
+                pixels = this.ReplacePixel(i, j + 1, pixels, newColour, canvasSize, ctx)
+                fillQueue.enqueue([i, j + 1]);
+            }
+            if ((j - 1) >=0 && this.CheckIfInColourThreshold(i, j-1, pixels, colourToReplace, canvasSize, 0))
+            {
+                //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
+                pixels = this.ReplacePixel(i, j - 1, pixels, newColour, canvasSize, ctx)
+                fillQueue.enqueue([i, j - 1]);
+            }
+
+            //setTimeout(() => {  ctx.putImageData(pixels, i, j, i, j, 1, 1); }, 1000);
+
+
+        }
+
+        ctx.putImageData(pixels, 0, 0);
+
+        
+    }
+
     CheckIfInColourThreshold(i, j, pixels, colourToReplace, canvasSize, threshold)
     {
-        if (pixels.data[i + (j * canvasSize.width)] >= colourToReplace[0] - threshold
-        && pixels.data[i + (j * canvasSize.width) + 1] >= colourToReplace[1] - threshold
-        && pixels.data[i + (j * canvasSize.width) + 2] >= colourToReplace[2] - threshold
-        && pixels.data[i + (j * canvasSize.width) + 3] >= colourToReplace[3] - threshold
-        && pixels.data[i + (j * canvasSize.width)] <= colourToReplace[0] + threshold
-        && pixels.data[i + (j * canvasSize.width) + 1] <= colourToReplace[1] + threshold
-        && pixels.data[i + (j * canvasSize.width) + 2] <= colourToReplace[2] + threshold
-        && pixels.data[i + (j * canvasSize.width) + 3] <= colourToReplace[3] + threshold)
-            return true;
-        else
-            return false;
+
+        /*return (pixels.data[i + (j * canvasSize.width)] == colourToReplace[0]
+        && pixels.data[i + (j * canvasSize.width) + 1] == colourToReplace[1]
+        && pixels.data[i + (j * canvasSize.width) + 2] == colourToReplace[2]
+        && pixels.data[i + (j * canvasSize.width) + 3] == colourToReplace[3]);*/
+
+        return (pixels.data[i + (j * canvasSize.width*4)] >= colourToReplace[0] - threshold
+        && pixels.data[i + (j * canvasSize.width*4) + 1] >= colourToReplace[1] - threshold
+        && pixels.data[i + (j * canvasSize.width*4) + 2] >= colourToReplace[2] - threshold
+        && pixels.data[i + (j * canvasSize.width*4) + 3] >= colourToReplace[3] - threshold
+        && pixels.data[i + (j * canvasSize.width*4)] <= colourToReplace[0] + threshold
+        && pixels.data[i + (j * canvasSize.width*4) + 1] <= colourToReplace[1] + threshold
+        && pixels.data[i + (j * canvasSize.width*4) + 2] <= colourToReplace[2] + threshold
+        && pixels.data[i + (j * canvasSize.width*4) + 3] <= colourToReplace[3] + threshold);
+    }
+
+    ReplacePixel(i, j, pixels, newColour, canvasSize, ctx)
+    {
+        pixels.data[i + (j * canvasSize.width*4)] = newColour[0];
+        pixels.data[i + (j * canvasSize.width*4) + 1] = newColour[1];
+        pixels.data[i + (j * canvasSize.width*4) + 2] = newColour[2];
+        pixels.data[i + (j * canvasSize.width*4) + 3] = newColour[3];
+
+        /*console.log(pixels.data[i + (j * canvasSize.width)] + ","
+        + pixels.data[i + (j * canvasSize.width) + 1] + ","
+        + pixels.data[i + (j * canvasSize.width) + 2] + ","
+        + pixels.data[i + (j * canvasSize.width) + 3]);*/
+
+        /*
+        ctx.beginPath();
+        ctx.fillRect(i/4, j, 1, 1);
+        ctx.stroke();
+      
+
+        setTimeout(() => {  //ctx.putImageData(pixels, (i/4), j, (i/4), j, 1, 1)
         
+
+        ctx.beginPath();
+        ctx.fillRect(i/4, j, 1, 1);
+        ctx.stroke();; } , 1);
+
+
+        //ctx.putImageData(pixels, (i/4), j, 0, 0, 1, 1);*/
+
+        return pixels;
     }
 }

@@ -166,6 +166,10 @@ ul {
     width:50%;
 }
 
+.Tool_Small {
+    width:25%;
+}
+
 .LayerAdd
 {
 background-color: #dd6749;
@@ -360,8 +364,12 @@ input[type=submit]:hover
     background-image: url("/static/images/Circle.png");
     @extend %BaseToolButton;
 }
-#Flood {
+#Replace {
     background-image: url("/static/images/Replace.png");
+    @extend %BaseToolButton;
+}
+#Flood {
+    background-image: url("/static/images/Bucket.png");
     @extend %BaseToolButton;
 }
 #Erase {
