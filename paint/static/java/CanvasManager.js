@@ -11,6 +11,7 @@ class CanvasManager
         this.outlineColour = '#000000';
         this.fill = true;
         this.outline = true;
+        this.lastClickedColourButton = null;
         this.alpha = 1.0
         this.globalCompositeOperation="source-over";
 
@@ -295,6 +296,24 @@ class CanvasManager
                 if (mouseState == 2)
                 {
                     this.ReplaceColours(ctx, mousePos, canvasSize);
+                }
+                break;
+
+                case 7: //Colour Picker
+                if (mouseState == 2)
+                {
+                    let newColourArray = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+                
+                    console.log(newColourArray);
+                    
+                    //Convert the selected colour to a hexidecimal string
+                    this.lastClickedColourButton.value = "#" + parseInt((newColourArray[0].toString()).substr(1, 2), 16)
+                    + parseInt((newColourArray[1].toString()).substr(1, 2), 16)
+                    + parseInt((newColourArray[2].toString()).substr(3, 2), 16)
+                    + parseInt((newColourArray[3].toString()).substr(5, 2), 16);
+
+                    this.lastClickedColourButton.click();
+                    console.log(this.lastClickedColourButton);
                 }
                 break;
     

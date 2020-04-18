@@ -1408,7 +1408,9 @@ var jsc = {
 					sldPtrMB : document.createElement('div'), // slider pointer middle border
 					sldPtrOB : document.createElement('div'), // slider pointer outer border
 					btn : document.createElement('div'),
-					btnT : document.createElement('span') // text
+					btnT : document.createElement('span'), // text
+					btn2 : document.createElement('div'),
+					btnT2 : document.createElement('span')
 				};
 
 				jsc.picker.pad.appendChild(jsc.picker.padPal.elm);
@@ -1432,6 +1434,8 @@ var jsc = {
 
 				jsc.picker.btn.appendChild(jsc.picker.btnT);
 				jsc.picker.box.appendChild(jsc.picker.btn);
+				jsc.picker.btn2.appendChild(jsc.picker.btnT2);
+				jsc.picker.box.appendChild(jsc.picker.btn2);
 
 				jsc.picker.boxB.appendChild(jsc.picker.box);
 				jsc.picker.wrap.appendChild(jsc.picker.boxS);
@@ -1617,11 +1621,29 @@ var jsc = {
 			p.btn.style.color = THIS.buttonColor;
 			p.btn.style.font = '12px sans-serif';
 			p.btn.style.textAlign = 'center';
+			
+			//Picker button -------
+			p.btn2.style.display = THIS.closable ? 'block' : 'none';
+			p.btn2.style.position = 'absolute';
+			p.btn2.style.left = THIS.padding * 10 + 'px';
+			p.btn2.style.bottom = THIS.padding + 'px';
+			p.btn2.style.padding = '0 15px';
+			p.btn2.style.height = THIS.buttonHeight + 'px';
+			p.btn2.style.border = THIS.insetWidth + 'px solid';
+			setBtnBorder();
+			p.btn2.style.color = THIS.buttonColor;
+			p.btn2.style.font = '12px sans-serif';
+			p.btn2.style.textAlign = 'center';
+			p.btn2.className ="Tool";
+			p.btn2.className ="Fill";
+			//---------------------
+
 			try {
 				p.btn.style.cursor = 'pointer';
 			} catch(eOldIE) {
 				p.btn.style.cursor = 'hand';
 			}
+			
 			p.btn.onmousedown = function () {
 				THIS.hide();
 				
@@ -1633,9 +1655,28 @@ var jsc = {
 				
 				
 			};
+			try {
+				p.btn2.style.cursor = 'pointer';
+			} catch(eOldIE) {
+				p.btn2.style.cursor = 'hand';
+			}
+			p.btn2.onmousedown = function () {
+				THIS.hide();
+				
+				
+				var btn = document.getElementById("Picker");
+
+				btn.click();
+
+				
+				
+			};
 			p.btnT.style.lineHeight = THIS.buttonHeight + 'px';
 			p.btnT.innerHTML = '';
 			p.btnT.appendChild(document.createTextNode(THIS.closeText));
+			p.btnT2.style.lineHeight = THIS.buttonHeight + 'px';
+			p.btnT2.innerHTML = '';
+			p.btnT2.appendChild(document.createTextNode("Colour Picker"));
 			
 
 			// place pointers

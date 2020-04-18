@@ -10,7 +10,7 @@
 
 <body>
         
-
+        
         <div id="container" onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
 
                 <h2 id = "gallery" style="position: absolute; left: 14%; top: 0%; width:700; height: 660;">
@@ -43,6 +43,7 @@
         {% endfor %}
         </div>
 
+        </div>
         
         <!-- Save button and form here -->
 
@@ -80,12 +81,16 @@
                 <div id ="brushSizeText"> Size: 6px </div> 
         </div>
 
-        <div id ="brushAlphaBox">
+        <div id ="brushAlphaBox" onmousedown="">
                 <div class="slidecontainer">
                         <input type="range" min="0" max="10" value="10" class="slider" id="alpha">
                 </div>
                 <div id ="alphaText"> Alpha: 1 </div> 
         </div>
+
+
+        <button class="Tool" value=7 id="Picker" style="position: absolute; left: 25%; top: 0; margin: 4px;">
+                <br></button>
 
         <button class="Tool" value=0 id="Pencil" style="position: absolute; left: 25%; top: 0; margin: 4px;">
                 <br></button>
@@ -107,8 +112,11 @@
 
         <button class="Tool_Small" value=6 id="Replace" style="position: absolute; left: 25%; top: 160; margin: 4px;">
                 <br></button>
+        <!-- Hidden 7th tool that the colour selector will activate for you -->
 
         </div>
+
+
 
         <!-- Colour Pallette buttons here -->
 

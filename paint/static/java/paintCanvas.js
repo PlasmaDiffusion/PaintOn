@@ -57,8 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
             
             button.onclick = () => {
                 
+                //Change drawing tool
                 canvasManager.drawingTool = parseInt(button.value);
+
+                //Colour in button to show what was selected, and decolour other buttons
+                HighlightTool(button);
             }
+
+            //Highlight the default tool
+            if (button.id == "Pencil") HighlightTool(button);
         }
         //Colour change button
         else if (button.className == "Colour")
@@ -72,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 canvasManager.brushColour = button.value;
                 var otherBtn = document.getElementById("fillColUI");
                 otherBtn.style.backgroundColor = button.value;
-                
+                canvasManager.lastClickedColourButton = button;
                 }
                 else //Change outline colour
                 {
@@ -82,6 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 otherBtn.style.backgroundColor = button.value;
                 }
             }
+
+            //Set this as the default button for the colour picker
+            if (button.id == "Red") canvasManager.lastClickedColourButton = button;
         }
         else if (button.className == "Erase")
         {
@@ -288,4 +298,35 @@ document.querySelectorAll('label').forEach(label => {
 });
 
 
+}
+
+
+//Highlight the selected tool with a border and yellow background. Unhighlight every other button.
+function HighlightTool(button) {
+    otherToolButtons = document.getElementsByClassName("Tool");
+    otherToolSmallButtons = document.getElementsByClassName("Tool_Small");
+
+    //Regular sized buttons
+    for (let i = 0; i < otherToolButtons.length; i++) {
+        if (button.id != otherToolButtons[i].id) {
+            otherToolButtons[i].style.border = "solid black 1px";
+            otherToolButtons[i].style.backgroundColor = "white";
+        }
+        else {
+            otherToolButtons[i].style.border = "dotted orange 1px";
+            otherToolButtons[i].style.backgroundColor = "yellow";
+        }
+    }
+
+    //Smaller buttons
+    for (let i = 0; i < otherToolSmallButtons.length; i++) {
+        if (button.id != otherToolSmallButtons[i].id) {
+            otherToolSmallButtons[i].style.border = "solid black 1px";
+            otherToolSmallButtons[i].style.backgroundColor = "white";
+        }
+        else {
+            otherToolSmallButtons[i].style.border = "dotted orange 1px";
+            otherToolSmallButtons[i].style.backgroundColor = "yellow";
+        }
+    }
 }
