@@ -51,7 +51,7 @@ p {
   font-size: 12px;
   background-color: #e0d662;
   outline: none;
-  border-radius: 1px;
+  border-radius: 4px;
   width: 400px;
   text-shadow: none; }
 
@@ -203,12 +203,17 @@ table {
   padding: 4px;
   margin: 8px; }
 
-form {
+form, #fakeForm {
   background-color: #c78e23;
   border-radius: 1px;
   padding: 4px;
   max-width: 200px;
   border: solid 1px; }
+
+#fakeForm {
+  margin: auto;
+  background-color: #9c6f1b;
+  padding: 20px; }
 
 #signUp, #signUpForm {
   max-width: 410px;
@@ -220,13 +225,13 @@ form {
 #SaveForm {
   max-width: 400px; }
 
-input[type=submit] {
+input[type=submit], #demoButton {
   color: white;
   background-color: #a78104;
   transition: background-color 0.5s;
   border: solid 1px; }
 
-input[type=submit]:hover {
+input[type=submit]:hover, #demoButton:hover {
   color: #e6bd6f;
   background-color: #c78e23; }
 

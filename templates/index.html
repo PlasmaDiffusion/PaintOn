@@ -2,6 +2,7 @@
         {% include 'layout.html' %}
 
 <body>
+        <div id="mainScreen">
 
         <h1> PaintOn </h1>
 
@@ -18,14 +19,20 @@
         <input value="Login" type="submit"/>
 
         </form>
-    
-        
-        <form action = "{% url 'paint:signUp' %}" id="signUp"> <input type="submit" value="Sign Up"/></form>
+
+
+        <form action = "{% url 'paint:signUp' %}" id="signUp"> <input type="submit" value="Sign Up"/> </form>
+
+        <div id="fakeForm">
+                <button  id ="demoButton"> Quick Paint </button>
+        </div>
 
 
         {% if form.errors %}
         <p>Your username and password didn't match.</p>
         {% endif %}
+
+
 
         {% load static %}
         <img src="{% static 'images/Pencil.png' %}" />
@@ -38,8 +45,39 @@
         {{msg}}
 
 
+        </div>
+
         </h2>
 
+
+        <div id ="demoCanvas" style="display: none;">
+        {% include 'canvas.html' %}       
+        </div>
+
+        <!-- Small script for demoing the painter. -->
+        <script type="text/javascript"> 
+                document.getElementById("demoButton").onclick = function() { 
+          
+                    document.getElementById("demoCanvas").style.display = "block"; 
+                    document.getElementById("mainScreen").style.display = "none"; 
+          
+                    //Hide save button.
+                    document.getElementsByClassName("Save")[0].style.display = "none"; 
+
+                    //Overwrite exit button
+                    document.getElementsByClassName("Exit")[0].onclick  = () =>
+                    {
+                     //Hide save button.
+                     document.getElementById("demoCanvas").style.display = "none"; 
+                     document.getElementById("mainScreen").style.display = "block";        
+                    } 
+                } ;
+        </script>
+
 </body>
+
+
+
+
 
 </html>

@@ -79,7 +79,7 @@ p {
         font-size:  12px;
         background-color: $col1; 
         outline: none;
-        border-radius: 1px;
+        border-radius: 4px;
         width: 400px;
         text-shadow: none;
         
@@ -288,12 +288,19 @@ table {
 }
 
 
-form
+form, #fakeForm
 {   background-color: $col2;
     border-radius: 1px;
     padding: 4px;
     max-width: 200px;
     border: solid 1px;
+}
+
+#fakeForm
+{
+    margin: auto;
+    background-color: darken($col2, 10%);
+    padding: 20px;
 }
 
 #signUp, #signUpForm
@@ -314,7 +321,7 @@ form
 }
 
 
-input[type=submit]
+input[type=submit], #demoButton
 {
     color: white;
     background-color: rgb(167, 129, 4);
@@ -322,7 +329,7 @@ input[type=submit]
     border: solid 1px;
 }
 
-input[type=submit]:hover
+input[type=submit]:hover, #demoButton:hover
 {
     color: lighten($col2, 21%);
     background-color: $col2;
