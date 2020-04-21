@@ -234,8 +234,23 @@ class CanvasManager
                                     
                 if (mouseState == 0)
                 {
+                
+                //Save current state of canvas
+                this.tempCanvas = ctx.getImageData(0, 0, canvasSize.width, canvasSize.height);
+                }
+                else if (mouseState == 1)
+                {
+
+                //Load old canvas but then paint on it temporarily
+                ctx.putImageData(this.tempCanvas, 0, 0);
+
+
                 ctx.beginPath();
-                ctx.moveTo(mousePos.x, mousePos.y);
+                ctx.moveTo(this.prevMousePos.x, this.prevMousePos.y);
+                ctx.lineTo(mousePos.x, mousePos.y);
+                ctx.stroke();
+
+
                 }
                 else if (mouseState == 2)
                 {
@@ -248,7 +263,19 @@ class CanvasManager
                 case 3: //Box
                 if (mouseState == 0)
                 {
+                //Save current state of canvas
+                this.tempCanvas = ctx.getImageData(0, 0, canvasSize.width, canvasSize.height);
+                }        
+                else if (mouseState == 1)
+                {
+                
+                //Load old canvas but then paint on it temporarily
+                ctx.putImageData(this.tempCanvas, 0, 0);
+            
                 ctx.beginPath();
+                if (this.fill) {ctx.fillRect(this.prevMousePos.x, this.prevMousePos.y, mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y);}
+                if (this.outline) {ctx.rect(this.prevMousePos.x, this.prevMousePos.y, mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y); ctx.stroke();}
+            
                 }
                 else if (mouseState == 2)
                 {
@@ -261,27 +288,19 @@ class CanvasManager
                 case 4: //Elipse
                 if (mouseState == 0)
                 {
-                ctx.beginPath();
+                //Save current state of canvas
+                this.tempCanvas = ctx.getImageData(0, 0, canvasSize.width, canvasSize.height);
+                }
+                else if (mouseState == 1)
+                {
+                    ctx.putImageData(this.tempCanvas, 0, 0);
+                    ctx.beginPath();
+                    this.makeElipse(mousePos, ctx);
                 }
                 else if (mouseState == 2)
                 {
-                    if (this.prevMousePos.x > mousePos.x)
-                    {
-                        let prev = this.prevMousePos.x;
-                        this.prevMousePos.x = mousePos.x;
-                        mousePos.x = prev;
-                    }
-                    if (this.prevMousePos.y > mousePos.y)
-                    {
-                        let prev = this.prevMousePos.y;
-                        this.prevMousePos.y = mousePos.y;
-                        mousePos.y = prev;
-                    }
-
-                ctx.ellipse((this.prevMousePos.x + mousePos.x)/2, (this.prevMousePos.y + mousePos.y)/2, mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y, 0, 0, 180);
-                if (this.outline) ctx.stroke();
-                if (this.fill) ctx.fill();
-                
+                    ctx.beginPath();
+                    this.makeElipse(mousePos, ctx);
                 }
                 break;
 
@@ -311,7 +330,7 @@ class CanvasManager
                     
                     this.lastClickedColourButton.click();
                     this.lastClickedColourButton.style.backgroundColor = this.lastClickedColourButton.value;
-                    console.log(this.lastClickedColourButton);
+                    //console.log(this.lastClickedColourButton);
                 }
                 break;
     
@@ -336,6 +355,24 @@ class CanvasManager
         return red+green+blue+alpha;
     };
       
+    makeElipse(mousePos, ctx) {
+        if (this.prevMousePos.x > mousePos.x) {
+            let prev = this.prevMousePos.x;
+            this.prevMousePos.x = mousePos.x;
+            mousePos.x = prev;
+        }
+        if (this.prevMousePos.y > mousePos.y) {
+            let prev = this.prevMousePos.y;
+            this.prevMousePos.y = mousePos.y;
+            mousePos.y = prev;
+        }
+        ctx.ellipse((this.prevMousePos.x + mousePos.x) / 2, (this.prevMousePos.y + mousePos.y) / 2, mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y, 0, 0, 180);
+        if (this.outline)
+            ctx.stroke();
+        if (this.fill)
+            ctx.fill();
+    }
+
     //Functions for replacing and filling in colour below ----------------------------------------------------------
     ReplaceColours(ctx, mousePos, canvasSize) 
     {
@@ -347,7 +384,7 @@ class CanvasManager
             parseInt(this.brushColour.substr(5, 2), 16),
             255
         ];
-        console.log(newColourRGB);
+        //console.log(newColourRGB);
 
         //Get the image to iterate through the entire image pixel by pixel...
         let pixels = ctx.getImageData(0, 0, canvasSize.width, canvasSize.height);
@@ -393,9 +430,9 @@ class CanvasManager
 
         var i = Math.floor(mousePos.x) * 4; //x4 Because it goes rgba for one pixel
         var j = Math.floor(mousePos.y); //Rows get multiplied later
-        console.log(pixels);
+        //console.log(pixels);
 
-        console.log(i + "," + j);
+        //console.log(i + "," + j);
         //Is the target colour is the same as the replacement colour, do nothing
         if (newColour[0] == colourToReplace[0]
             && newColour[1] == colourToReplace[1]
