@@ -356,7 +356,7 @@ class CanvasManager
     };
       
     makeElipse(mousePos, ctx) {
-        if (this.prevMousePos.x > mousePos.x) {
+        /*if (this.prevMousePos.x > mousePos.x) {
             let prev = this.prevMousePos.x;
             this.prevMousePos.x = mousePos.x;
             mousePos.x = prev;
@@ -365,8 +365,24 @@ class CanvasManager
             let prev = this.prevMousePos.y;
             this.prevMousePos.y = mousePos.y;
             mousePos.y = prev;
-        }
-        ctx.ellipse((this.prevMousePos.x + mousePos.x) / 2, (this.prevMousePos.y + mousePos.y) / 2, mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y, 0, 0, 180);
+        }*/
+
+       let movingToRight = true;
+        if (this.prevMousePos.x > mousePos.x) movingToRight = false;
+
+        let movingToTop = true;
+        if (this.prevMousePos.y > mousePos.y) movingToTop = false;
+
+        //ctx.ellipse((this.prevMousePos.x + mousePos.x) / 2, (this.prevMousePos.y + mousePos.y) / 2,
+        //mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y, 0, 0, 180);
+
+        ctx.ellipse((this.prevMousePos.x + mousePos.x) / 2, (this.prevMousePos.y + mousePos.y) / 2,
+        (movingToRight ? (mousePos.x - this.prevMousePos.x) : (this.prevMousePos.x - mousePos.x)),
+        (movingToTop ? (mousePos.y - this.prevMousePos.y) : (this.prevMousePos.y - mousePos.y)),
+        0, 0, 180);
+        
+        //this.prevMousePos.x - mousePos.x, this.prevMousePos.y - mousePos.y
+
         if (this.outline)
             ctx.stroke();
         if (this.fill)
