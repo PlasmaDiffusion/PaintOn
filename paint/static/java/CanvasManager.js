@@ -212,6 +212,9 @@ class CanvasManager
         ctx.imageSmoothingEnabled = false;
         ctx.globalCompositeOperation = this.globalCompositeOperation;
 
+        //Don't do anything if choosing colour
+        if (document.getElementById("ColourPopup")) return;
+
         switch (drawingTool)
             {
                 case 0: //Pencil
@@ -330,11 +333,13 @@ class CanvasManager
                     
                     this.lastClickedColourButton.click();
                     this.lastClickedColourButton.style.backgroundColor = this.lastClickedColourButton.value;
-                    //console.log(this.lastClickedColourButton);
+                    //console.log(this.lastClickedColourButton.value);
+                    console.log(newColourArray);
                 }
                 break;
     
             }
+
         
     }
 
@@ -356,16 +361,6 @@ class CanvasManager
     };
       
     makeElipse(mousePos, ctx) {
-        /*if (this.prevMousePos.x > mousePos.x) {
-            let prev = this.prevMousePos.x;
-            this.prevMousePos.x = mousePos.x;
-            mousePos.x = prev;
-        }
-        if (this.prevMousePos.y > mousePos.y) {
-            let prev = this.prevMousePos.y;
-            this.prevMousePos.y = mousePos.y;
-            mousePos.y = prev;
-        }*/
 
        let movingToRight = true;
         if (this.prevMousePos.x > mousePos.x) movingToRight = false;
@@ -455,16 +450,17 @@ class CanvasManager
             && newColour[2] == colourToReplace[2]
             && newColour[3] == colourToReplace[3])
         {
-            console.log("Target colour same as replacement colour.");
+            //console.log("Target colour same as replacement colour.");
                 return;
         }
         //Else is the  pixel not equal to the target colour? We don't want to colour over the wrong colour.
-        else if (pixels.data[i + (j * canvasSize.width)] != colourToReplace[0]
-        && pixels.data[i + (j * canvasSize.width) + 1] != colourToReplace[1]
-        && pixels.data[i + (j * canvasSize.width) + 2] != colourToReplace[2]
-        && pixels.data[i + (j * canvasSize.width) + 3] != colourToReplace[3])
+        else if (pixels.data[i + (j * canvasSize.width * 4)] != colourToReplace[0]
+        && pixels.data[i + (j * canvasSize.width * 4) + 1] != colourToReplace[1]
+        && pixels.data[i + (j * canvasSize.width * 4) + 2] != colourToReplace[2]
+        && pixels.data[i + (j * canvasSize.widt * 4) + 3] != colourToReplace[3])
         {
 
+            //console.log("Pixel is not the target colour.");
                 return;
         }
         //Else colour it in
@@ -483,30 +479,31 @@ class CanvasManager
         while (!fillQueue.isEmpty())
         {
             let pixelIndexArray = fillQueue.dequeue();
+            let threshold = 30;
 
             i = pixelIndexArray[0];
             j = pixelIndexArray[1];
 
             //Go again in each direction
-            if (((i + 4) < maxWidth) && this.CheckIfInColourThreshold(i + 4, j, pixels, colourToReplace, canvasSize, 0))
+            if (((i + 4) < maxWidth) && this.CheckIfInColourThreshold(i + 4, j, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
                 pixels = this.ReplacePixel(i + 4, j, pixels, newColour, canvasSize, ctx)
                 fillQueue.enqueue([i+4, j]);
             }
-            if ((i - 4  >=0)  && this.CheckIfInColourThreshold(i - 4, j, pixels, colourToReplace, canvasSize, 0))
+            if ((i - 4  >=0)  && this.CheckIfInColourThreshold(i - 4, j, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
                 pixels = this.ReplacePixel(i - 4, j, pixels, newColour, canvasSize, ctx)
                 fillQueue.enqueue([i - 4, j]);
             }
-            if ((j + 1) < (maxHeight) && this.CheckIfInColourThreshold(i, j+1, pixels, colourToReplace, canvasSize, 0))
+            if ((j + 1) < (maxHeight) && this.CheckIfInColourThreshold(i, j+1, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
                 pixels = this.ReplacePixel(i, j + 1, pixels, newColour, canvasSize, ctx)
                 fillQueue.enqueue([i, j + 1]);
             }
-            if ((j - 1) >=0 && this.CheckIfInColourThreshold(i, j-1, pixels, colourToReplace, canvasSize, 0))
+            if ((j - 1) >=0 && this.CheckIfInColourThreshold(i, j-1, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
                 pixels = this.ReplacePixel(i, j - 1, pixels, newColour, canvasSize, ctx)

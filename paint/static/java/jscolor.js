@@ -1462,6 +1462,7 @@ var jsc = {
 			// picker
 			p.box.style.width = dims[0] + 'px';
 			p.box.style.height = dims[1] + 'px';
+			p.box.id="ColourPopup";
 
 			p.boxS.style.position = 'absolute';
 			p.boxS.style.left = '0';
@@ -1649,6 +1650,7 @@ var jsc = {
 				
 				
 				var btn = document.getElementById(THIS.buttonThatOpenedThis);
+				
 
 				btn.click();
 
