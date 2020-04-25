@@ -271,7 +271,6 @@ class CanvasManager
                 }        
                 else if (mouseState == 1)
                 {
-                
                 //Load old canvas but then paint on it temporarily
                 ctx.putImageData(this.tempCanvas, 0, 0);
             
@@ -282,6 +281,8 @@ class CanvasManager
                 }
                 else if (mouseState == 2)
                 {
+                    ctx.translate(0.5, 0.5);
+
                 if (this.fill) ctx.fillRect(this.prevMousePos.x, this.prevMousePos.y, mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y);
                 if (this.outline) {ctx.rect(this.prevMousePos.x, this.prevMousePos.y, mousePos.x - this.prevMousePos.x, mousePos.y - this.prevMousePos.y); ctx.stroke();}
 
@@ -403,10 +404,13 @@ class CanvasManager
         let maxHeightIndex = canvasSize.height;
         let maxWidthIndex = canvasSize.width * 4;
 
+        //Use brush size as a threshold value, and if the brush size is 1 make the threshold 0.
+        let threshold = (this.brushSize >1) ?  (this.brushSize * 10) : (0);
+
         for (let j = 0; j <= maxHeightIndex; j += 1) {
             for (let i = 0; i <= maxWidthIndex; i += 4) //+ 4 because 0...3 for colour index values
             {
-                if (this.CheckIfInColourThreshold(i, j, pixels, colourToReplace, canvasSize, 70)) {
+                if (this.CheckIfInColourThreshold(i, j, pixels, colourToReplace, canvasSize, threshold)) {
                     //...then make it the new colour.
                     pixels.data[i + (j * canvasSize.width * 4)] = newColourRGB[0];
                     pixels.data[i + (j * canvasSize.width * 4) + 1] = newColourRGB[1];
@@ -444,7 +448,7 @@ class CanvasManager
         //console.log(pixels);
 
         //console.log(i + "," + j);
-        //Is the target colour is the same as the replacement colour, do nothing
+        //If the target colour is the same as the replacement colour, do nothing
         if (newColour[0] == colourToReplace[0]
             && newColour[1] == colourToReplace[1]
             && newColour[2] == colourToReplace[2]
@@ -454,10 +458,10 @@ class CanvasManager
                 return;
         }
         //Else is the  pixel not equal to the target colour? We don't want to colour over the wrong colour.
-        else if (pixels.data[i + (j * canvasSize.width * 4)] != colourToReplace[0]
-        && pixels.data[i + (j * canvasSize.width * 4) + 1] != colourToReplace[1]
-        && pixels.data[i + (j * canvasSize.width * 4) + 2] != colourToReplace[2]
-        && pixels.data[i + (j * canvasSize.widt * 4) + 3] != colourToReplace[3])
+        else if (pixels.data[i + (j * maxWidth)] != colourToReplace[0]
+        && pixels.data[i + (j * maxWidth) + 1] != colourToReplace[1]
+        && pixels.data[i + (j * maxWidth) + 2] != colourToReplace[2]
+        && pixels.data[i + (j * maxWidth) + 3] != colourToReplace[3])
         {
 
             //console.log("Pixel is not the target colour.");
@@ -466,20 +470,26 @@ class CanvasManager
         //Else colour it in
         else
         {
-            pixels.data[i + (j * canvasSize.width)] = newColour[0];
-            pixels.data[i + (j * canvasSize.width) + 1] = newColour[1];
-            pixels.data[i + (j * canvasSize.width) + 2] = newColour[2];
-            pixels.data[i + (j * canvasSize.width) + 3] = newColour[3];
+            pixels.data[i + (j * maxWidth)] = newColour[0];
+            pixels.data[i + (j * maxWidth) + 1] = newColour[1];
+            pixels.data[i + (j * maxWidth) + 2] = newColour[2];
+            pixels.data[i + (j * maxWidth) + 3] = newColour[3];
             //ctx.putImageData(pixels, i/4, j, 0, 0, 1, 1);
         }
 
         var fillQueue = new Queue();
         fillQueue.enqueue([i,j])
 
-        while (!fillQueue.isEmpty())
+
+        let threshold = (this.brushSize >1) ?  (this.brushSize * 10) : (0);
+        
+        //Failsafe variable that stops the algorithm from going overboard
+        let uses = 0;
+
+        while (!fillQueue.isEmpty() && uses < 262144)
         {
             let pixelIndexArray = fillQueue.dequeue();
-            let threshold = 30;
+            uses++;
 
             i = pixelIndexArray[0];
             j = pixelIndexArray[1];
@@ -512,6 +522,21 @@ class CanvasManager
 
             //setTimeout(() => {  ctx.putImageData(pixels, i, j, i, j, 1, 1); }, 1000);
 
+
+        }
+
+        if (uses > 200000)
+        {
+            let debugLog =
+            {
+
+            loops: uses,
+            tryingToReplace: colourToReplace,
+            colour: newColour,
+            queue: fillQueue
+            };
+
+            console.log(debugLog);
 
         }
 

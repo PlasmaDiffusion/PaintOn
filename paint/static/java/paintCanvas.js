@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var canvasManager = new CanvasManager();
 
+    var usingToleranceTool = false;
+
     console.log(canvasManager.getCurrentLayerId());
 
 
@@ -62,6 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 //Colour in button to show what was selected, and decolour other buttons
                 HighlightTool(button);
+
+                //When the replacement/fill tool is selected, let the player choose a tolerance
+                usingToleranceTool = (button.id == "Flood" || button.id == "Replace")
+                var slider = document.getElementById("brushSize");
+                slider.click();
             }
 
             //Highlight the default tool
@@ -155,11 +162,18 @@ document.addEventListener('DOMContentLoaded', () => {
     //Brush size slider
     var slider = document.getElementById("brushSize");
 
-    // Update the current brush size
+    // Update the current brush size (Only the text onInput)
     slider.oninput = function() {
-    canvasManager.brushSize = this.value;
     var sliderText = document.getElementById("brushSizeText");
-    sliderText.innerHTML = "Size: " + this.value + "px";
+    if (usingToleranceTool) sliderText.innerHTML = "Tolerance: " + this.value;
+    else sliderText.innerHTML = "Size: " + this.value + "px";
+    }
+    //(This onclick can be triggered when you want this slider to change.)
+    slider.onclick = function() {
+        canvasManager.brushSize = this.value;
+        var sliderText = document.getElementById("brushSizeText");
+        if (usingToleranceTool) sliderText.innerHTML = "Tolerance: " + this.value;
+        else sliderText.innerHTML = "Size: " + this.value + "px";
     }
 
     //Brush size slider
