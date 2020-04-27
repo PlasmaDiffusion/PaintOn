@@ -480,63 +480,55 @@ class CanvasManager
         var fillQueue = new Queue();
         fillQueue.enqueue([i,j])
 
+        var pixelAlreadyReplaced = new Array(262144);
 
-        let threshold = (this.brushSize >1) ?  (this.brushSize * 10) : (0);
+
+        let threshold = (this.brushSize >1) ?  (this.brushSize * 20) : (0);
         
         //Failsafe variable that stops the algorithm from going overboard
         let uses = 0;
 
-        while (!fillQueue.isEmpty() && uses < 262144)
+        while (!fillQueue.isEmpty())
         {
-            let pixelIndexArray = fillQueue.dequeue();
-            uses++;
+            let pixelArray = fillQueue.dequeue();
+            
 
-            i = pixelIndexArray[0];
-            j = pixelIndexArray[1];
+            i = pixelArray[0];
+            j = pixelArray[1];
 
+            let pixelIndex = (i/4)+(j*canvasSize.width);
+
+        if (pixelAlreadyReplaced[pixelIndex] == null)
+            {
             //Go again in each direction
             if (((i + 4) < maxWidth) && this.CheckIfInColourThreshold(i + 4, j, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
-                pixels = this.ReplacePixel(i + 4, j, pixels, newColour, canvasSize, ctx)
+                pixels = this.ReplacePixel(i + 4, j, pixels, newColour, canvasSize, ctx);
                 fillQueue.enqueue([i+4, j]);
             }
             if ((i - 4  >=0)  && this.CheckIfInColourThreshold(i - 4, j, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
-                pixels = this.ReplacePixel(i - 4, j, pixels, newColour, canvasSize, ctx)
+                pixels = this.ReplacePixel(i - 4, j, pixels, newColour, canvasSize, ctx);
                 fillQueue.enqueue([i - 4, j]);
             }
             if ((j + 1) < (maxHeight) && this.CheckIfInColourThreshold(i, j+1, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
-                pixels = this.ReplacePixel(i, j + 1, pixels, newColour, canvasSize, ctx)
+                pixels = this.ReplacePixel(i, j + 1, pixels, newColour, canvasSize, ctx);
                 fillQueue.enqueue([i, j + 1]);
             }
             if ((j - 1) >=0 && this.CheckIfInColourThreshold(i, j-1, pixels, colourToReplace, canvasSize, threshold))
             {
                 //this.FloodFill(i + 4, j, pixels, colourToReplace, canvasSize, threshold, newColour)
-                pixels = this.ReplacePixel(i, j - 1, pixels, newColour, canvasSize, ctx)
+                pixels = this.ReplacePixel(i, j - 1, pixels, newColour, canvasSize, ctx);
                 fillQueue.enqueue([i, j - 1]);
             }
-
+            }
+        pixelAlreadyReplaced[pixelIndex] = true;
             //setTimeout(() => {  ctx.putImageData(pixels, i, j, i, j, 1, 1); }, 1000);
 
-
-        }
-
-        if (uses > 200000)
-        {
-            let debugLog =
-            {
-
-            loops: uses,
-            tryingToReplace: colourToReplace,
-            colour: newColour,
-            queue: fillQueue
-            };
-
-            console.log(debugLog);
 
         }
 
