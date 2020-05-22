@@ -1,4 +1,4 @@
-# Final Project: Online Paint Program
+# PaintOn: An Online Paint Program
 
 This project is a paint program with javascript, and also an online database for sharing you drawings through python and sql.
 
