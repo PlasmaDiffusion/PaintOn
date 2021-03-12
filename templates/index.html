@@ -4,46 +4,33 @@
 <body  id="homepageBG">
         <div id="mainScreen">
 
-        <h1> PaintOn </h1>
 
-        <h2>
+        <div id="intro">
+                
+                <h1> PaintOn </h1>
+                <p>
+                        Welcome! Give the paint tool a try! You can also make an account to save your drawings, and to view drawings created by others!
 
-        <form action="{% url 'paint:login' %}" id="signUp" method="POST">
+                </p>
 
-        {% csrf_token %}
-        Username
-        <input name="username" type="text"/>
-        Password
-        <input name="password" type="password"/>
-        <br>
-        <input value="Login" type="submit"/>
-
-        </form>
+                <div>
+                        <button id="demoButton">&nbsp; Start Painting &nbsp;</button>
+                        <a href="/login">&nbsp; Sign In  &nbsp;</a>
+                </div>
+                <br>
 
 
-        <form action = "{% url 'paint:signUp' %}" id="signUp"> <input type="submit" value="Sign Up"/> </form>
-
-        <div id="fakeForm">
-                <button  id ="demoButton"> Paint Demo </button>
         </div>
-
-
-        {% if form.errors %}
-        <p>Your username and password didn't match.</p>
-        {% endif %}
-
 
 
         {% load static %}
         <img src="{% static 'images/paintClipArt.png' %}" id="paintClipArt" />
         
 
-        {{msg}}
 
 
         </div>
 
-        </h2>
 
 
         <div id ="demoCanvas" style="display: none;">

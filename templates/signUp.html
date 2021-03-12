@@ -15,8 +15,24 @@
 
     </form>
 
-    <form action = "{% url 'paint:index' %}" id="signUp"> <input type="submit" value="Back To Login"/></form>
+    <form action = "{% url 'paint:index' %}" id="signUp"> <input type="submit" value="Back"/></form>
     
+    <script type="text/javascript">
+        //Remove unneeded help text
+        var helpText = document.getElementsByClassName("helptext");
+        
+        for (let i = 0;i < helpText.length; i++)
+        {
+            helpText[i].style.display="none";
+        }
+
+        //Reorder password help
+        var list = document.getElementsByTagName("ul");
+        var parent = list[0].parentNode;
+        parent.insertBefore(list[0], parent.children[parent.children.length-1]);
+        parent.children[3].remove();
+    </script>
+
 </body>
 
 </html>

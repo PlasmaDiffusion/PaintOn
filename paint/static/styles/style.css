@@ -1,8 +1,6 @@
-/*$col1: #94d793;
-$col2: #229079;
-$col3: #285556;*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
 h2, #gallery, h3, h1, p {
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 36px;
   font-weight: bold;
   text-align: center;
@@ -33,12 +31,6 @@ h2 {
 body {
   background-image: linear-gradient(to right top, #d9a64c, #da9c4a, #db934a, #da894b, #d9804c); }
 
-#paintClipArt {
-  position: absolute;
-  width: 20%;
-  top: 100;
-  left: 900; }
-
 #gallery {
   font-size: 24px;
   border: 4px;
@@ -61,8 +53,7 @@ h3 {
 
 h1 {
   font-size: 36px;
-  border: 4px;
-  font-family: cursive, "Times New Roman", Times, serif; }
+  border: 4px; }
 
 p {
   font-size: 12px;
@@ -92,8 +83,63 @@ a:hover {
   transition: background-color 0.5s;
   text-decoration: none; }
 
+#intro {
+  margin-top: 10rem;
+  animation-name: fade;
+  animation-duration: 4s; }
+  #intro h1 {
+    font-style: italic;
+    font-size: 3rem; }
+  #intro h1,
+  #intro p,
+  #intro div {
+    margin-left: 10rem;
+    text-align: left; }
+  #intro p,
+  #intro div {
+    font-size: 1.5rem; }
+  #intro button,
+  #intro a {
+    font-size: 2rem;
+    border: 2px solid #f8ce57;
+    color: #f8ce57;
+    border-radius: 4px;
+    background: none; }
+  #intro button {
+    background-color: #f8ce57;
+    color: #000000;
+    cursor: pointer; }
+  #intro button:hover {
+    color: black; }
+  #intro a {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button; }
+  #intro a:hover {
+    background-color: #d9a64c; }
+
+#paintClipArt {
+  animation-name: goDown;
+  animation-duration: 2s;
+  position: absolute;
+  width: 20%;
+  top: 140;
+  left: 700; }
+
+@keyframes fade {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes goDown {
+  from {
+    transform: translate(0, -50%);
+    opacity: 0; }
+  to {
+    transform: translate(0, 0%);
+    opacity: 1; } }
 ul {
-  font-size: 12pt; }
+  font-size: 10pt; }
 
 #bg {
   background-color: #f8ce57;
@@ -115,6 +161,7 @@ ul {
 .likes {
   width: 150px;
   margin: auto;
+  margin-top: 5px;
   background-color: #e2bb76;
   padding: 10px;
   border-radius: 8px;
@@ -122,7 +169,8 @@ ul {
   font-size: 1.5rem; }
 
 #logout {
-  width: 300px; }
+  width: 300px;
+  font-size: 16px; }
 
 .tab {
   padding-left: 5em; }
@@ -235,7 +283,14 @@ form,
   border-radius: 1px;
   padding: 4px;
   max-width: 200px;
-  border: 2px outset #f8ce57; }
+  border: 2px outset #f8ce57;
+  font-family: sans-serif; }
+
+label {
+  font-size: 16px; }
+
+input {
+  font-family: sans-serif; }
 
 #fakeForm {
   margin: auto;
@@ -305,10 +360,26 @@ input[type="submit"]:hover,
 #Erase {
   background-image: url("/static/images/Erasure.png"); }
 
+#phoneWarning {
+  display: none; }
+
 @media screen and (max-width: 992px) {
   #canvasBack {
     background: url("/static/images/greenBG.png");
     border: 12px; }
+
+  #intro h1 {
+    font-size: 3.5rem; }
+  #intro p,
+  #intro button,
+  #intro a {
+    font-size: 3rem; }
+  #intro p {
+    width: 60%; }
+
+  #paintClipArt {
+    top: 400;
+    left: 770; }
 
   canvas {
     touch-action: none; }
@@ -338,6 +409,11 @@ input[type="submit"]:hover,
       border: 0px;
       width: 100%;
       height: 1em; }
+    form label {
+      font-size: 36px; }
+
+  ul {
+    font-size: 14pt; }
 
   #searchForm {
     max-width: 50%; }
@@ -390,6 +466,16 @@ input[type="submit"]:hover,
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
     background: url("/static/images/greenBG.png"); }
+
+  #phoneWarning {
+    display: block;
+    font-size: 3rem;
+    position: fixed;
+    padding-top: 500px;
+    z-index: 2;
+    background-color: #d9804c;
+    width: 100%;
+    height: 100%; }
 
   #signUp {
     width: 40%;
