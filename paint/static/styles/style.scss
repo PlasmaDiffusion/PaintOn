@@ -3,6 +3,7 @@ $col2: #d9a64c;
 $col3: #d9804c;
 $col4: #000000;
 
+//Import font
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
 
 %baseHeading {
@@ -12,8 +13,6 @@ $col4: #000000;
   text-align: center;
   align-content: center;
   color: $col4;
-  //background: url("/static/images/greenBG.png");
-  //border:2px outset darken($col1, 30%);
   border-radius: 8px;
   padding: 4px;
   margin: auto;
@@ -41,6 +40,7 @@ h2 {
   top: 0;
 }
 
+//The site's background
 body {
   background-image: linear-gradient(
     to right top,
@@ -52,6 +52,7 @@ body {
   );
 }
 
+//The gallery will have a bunch of canvasesof other's art, plus links to like/download it
 #gallery {
   @extend %baseHeading;
   font-size: 24px;
@@ -85,8 +86,6 @@ h1 {
   @extend %baseHeading;
   font-size: 36px;
   border: 4px;
-
-  //background-image: linear-gradient(to right top, #d1cd6b, #dad67e, #e3df91, #ebe8a4, #f4f1b7, #f7f3b7, #f9f4b6, #fcf6b6, #fbf1a1, #faeb8c, #fbe576, #fbdf5f);
 }
 
 p {
@@ -100,6 +99,7 @@ p {
   text-shadow: none;
 }
 
+//Links that will look like buttons
 a {
   color: black;
   text-shadow: none;
@@ -206,8 +206,9 @@ a:hover {
   }
 }
 
-//-------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------
 
+//Uls are found in forms
 ul {
   font-size: 10pt;
 }
@@ -222,10 +223,12 @@ ul {
   background-color: $col2;
 }
 
+//Background box that goes behind the canvases
 #bgCanvas {
   background-color: $col1;
 }
 
+//Background checkerboard that's directly behind the canvas
 #canvasBack {
   background: url("/static/images/greenBG.png");
   border: 12px;
@@ -259,6 +262,7 @@ ul {
   padding-left: 90px;
 }
 
+// Tool buttons ---------------------------------------------------------------------------------------------------------
 .Colour,
 .FillOrOutline,
 #Erase {
@@ -369,6 +373,8 @@ ul {
   padding: 1px;
 }
 
+//Forms -----------------------------------------------------------------------------------------------------------
+
 table {
   text-align: center;
   background-color: lighten($col2, 21%);
@@ -444,7 +450,7 @@ input[type="submit"]:hover,
   }
 }
 
-//Button icons
+//Button icons ----------------------------------------------------------------------------------------------------
 %BaseToolButton {
   background-repeat: no-repeat;
   background-origin: padding-box;
@@ -609,7 +615,7 @@ input[type="submit"]:hover,
     opacity: 1;
   }
 
-  //Portrait exclusive
+  //Portrait exclusive stuff (Phone users need to use the paint tool in landsacape ---------------------------------------------------------
   @media only screen and (orientation: portrait) {
     #container {
       height: 100vw;
