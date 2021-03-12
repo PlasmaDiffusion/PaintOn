@@ -1,0 +1,552 @@
+/*$col1: #94d793;
+$col2: #229079;
+$col3: #285556;*/
+
+$col1: rgb(197, 132, 132);
+$col2: #c78e23;
+$col3: rgb(128, 5, 5);
+
+%baseHeading {
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px grey;
+  align-content: center;
+  color: $col2;
+  //background: url("/static/images/greenBG.png");
+  background-color: $col1;
+  outline: 2px as $col3;
+  //border:2px outset darken($col1, 30%);
+  border-radius: 8px;
+  padding: 4px;
+  margin: auto;
+  margin-bottom: 32px;
+}
+
+h2 {
+  @extend %baseHeading;
+  font-size: 24px;
+  border: 4px;
+  text-shadow: 2px 2px black;
+  background: none;
+}
+
+#gallery {
+  @extend %baseHeading;
+  font-size: 24px;
+  border: 4px;
+  text-shadow: 2px 2px black;
+  background-color: $col2;
+
+  border: black 12px;
+  border-style: outset;
+  border-color: darken($col2, 10%);
+  border-radius: 4px;
+
+  a {
+    background-color: rgb(163, 112, 18);
+  }
+
+  a:hover {
+    color: white;
+    background-color: rgb(216, 167, 8);
+    transition: background-color 0.5s;
+    text-decoration: none;
+  }
+}
+
+h3 {
+  @extend %baseHeading;
+  font-size: 20px;
+  border: 4px;
+  text-shadow: 2px 2px black;
+}
+
+h1 {
+  @extend %baseHeading;
+  font-size: 36px;
+  border: 4px;
+  text-shadow: 2px 2px black;
+
+  //background-image: linear-gradient(to right top, #d1cd6b, #dad67e, #e3df91, #ebe8a4, #f4f1b7, #f7f3b7, #f9f4b6, #fcf6b6, #fbf1a1, #faeb8c, #fbe576, #fbdf5f);
+  background: linear-gradient(to bottom right, #ffdf99 0%, #cc6600 100%);
+}
+
+p {
+  @extend %baseHeading;
+  font-size: 12px;
+  background-color: $col1;
+  outline: none;
+  border-radius: 4px;
+  width: 400px;
+  text-shadow: none;
+}
+
+a {
+  color: black;
+  text-shadow: none;
+  background-color: rgb(211, 180, 8);
+  outline-width: 4px;
+  border-radius: 4px;
+}
+
+p {
+  a {
+    padding: 4px;
+  }
+}
+
+a:hover {
+  color: white;
+  background-color: rgb(167, 129, 4);
+  transition: background-color 0.5s;
+  text-decoration: none;
+}
+
+ul {
+  font-size: 12pt;
+}
+
+#bg {
+  background-image: linear-gradient(
+    to right top,
+    #d1cd6b,
+    #dad67e,
+    #e3df91,
+    #ebe8a4,
+    #f4f1b7,
+    #f7f3b7,
+    #f9f4b6,
+    #fcf6b6,
+    #fbf1a1,
+    #faeb8c,
+    #fbe576,
+    #fbdf5f
+  );
+  margin-bottom: 32px;
+}
+
+#bgCanvas {
+  background-image: linear-gradient(
+    to right top,
+    #d1cd6b,
+    #dad67e,
+    #e3df91,
+    #ebe8a4,
+    #f4f1b7,
+    #f7f3b7,
+    #f9f4b6,
+    #fcf6b6,
+    #fbf1a1,
+    #faeb8c,
+    #fbe576,
+    #fbdf5f
+  );
+}
+
+#canvasBack {
+  background: url("/static/images/greenBG.png");
+  border: 12px;
+  width: 512px;
+  height: 512px;
+  margin: auto;
+}
+
+#likes {
+  width: 150px;
+  margin: auto;
+  //width: 50%;
+  background-color: lighten($col2, 10%);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#logout {
+  width: 300px;
+}
+
+.tab {
+  padding-left: 5em;
+}
+
+.helpText {
+  padding-left: 90px;
+}
+
+.Colour,
+.FillOrOutline,
+#Erase {
+  width: 20%;
+  height: 16px;
+  border: solid 1px;
+}
+
+.Tool {
+  width: 50%;
+}
+
+.Tool_Small {
+  width: 25%;
+}
+
+.LayerAdd {
+  background-color: #dd6749;
+  border: solid 1px;
+}
+
+.LayerAdd:hover {
+  background-color: darken(#dd6749, 20%);
+  transition: background-color 0.5s;
+  border: solid 1px;
+}
+
+.LayerChange {
+  background-color: #ddc249;
+  border: solid 1px;
+}
+
+.LayerChange:hover {
+  background-color: darken(#ddc249, 20%);
+  transition: background-color 0.5s;
+  border: solid 1px;
+}
+
+.Exit,
+.Save {
+  background-color: #dd8449;
+  border: solid 1px;
+}
+
+.Exit:hover,
+.Save:hover {
+  background-color: darken(#dd8449, 20%);
+  transition: background-color 0.5s;
+  border: solid 1px;
+}
+
+#Pallette {
+  position: fixed;
+  left: 16;
+  top: 284;
+  width: 10%;
+  height: 200px;
+  background-color: $col2;
+  border: $col3;
+  border-style: solid;
+}
+
+#Toolbox {
+  position: fixed;
+  left: 16;
+  top: 94;
+  width: 10%;
+  height: 232px;
+  background-color: $col2;
+  border: $col3;
+  border-style: solid;
+}
+
+%SubBox {
+  background-color: dimgray;
+  border: rgb(49, 49, 49);
+  border-style: solid;
+}
+
+#brushSize,
+#alpha {
+  width: 100%;
+  height: 50%;
+}
+
+#brushSizeBox,
+#brushAlphaBox {
+  @extend %SubBox;
+  width: 64px;
+  height: 32px;
+  font-size: 10px;
+}
+
+#brushAlphaBox {
+  @extend %SubBox;
+  width: 64px;
+  height: 32px;
+  font-size: 10px;
+  position: absolute;
+  left: 25%;
+  top: 228;
+}
+
+#tickBoxText {
+  @extend %SubBox;
+  width: 32px;
+  height: 32px;
+  font-size: 8px;
+  padding: 1px;
+}
+
+body {
+  background: url("/static/images/greenBG.png");
+  background-color: darken($col1, 21%);
+  color: white;
+  margin: 4px;
+}
+
+table {
+  text-align: center;
+  background-color: lighten($col2, 21%);
+  border-radius: 8px;
+  padding: 4px;
+  margin: 8px;
+}
+
+form,
+#fakeForm {
+  background-color: $col2;
+  border-radius: 1px;
+  padding: 4px;
+  max-width: 200px;
+  border: solid 1px;
+}
+
+#fakeForm {
+  margin: auto;
+  background-color: darken($col2, 10%);
+  padding: 20px;
+}
+
+#signUp,
+#signUpForm {
+  max-width: 410px;
+  margin: auto;
+}
+
+#searchForm {
+  margin: auto;
+}
+
+#SaveForm {
+  max-width: 400px;
+}
+
+input[type="submit"],
+#demoButton {
+  color: white;
+  background-color: rgb(167, 129, 4);
+  transition: background-color 0.5s;
+  border: solid 1px;
+}
+
+input[type="submit"]:hover,
+#demoButton:hover {
+  color: lighten($col2, 21%);
+  background-color: $col2;
+}
+
+@media screen and (max-height: 500px) {
+  #brushAlphaBox {
+    position: absolute;
+    left: 100%;
+    top: 196;
+  }
+}
+
+//Button icons
+%BaseToolButton {
+  background-repeat: no-repeat;
+  background-origin: padding-box;
+  background-position: center;
+}
+
+#Pencil {
+  background-image: url("/static/images/Pencil.png");
+  @extend %BaseToolButton;
+}
+#Brush {
+  background-image: url("/static/images/Brush.png");
+  @extend %BaseToolButton;
+}
+#Line {
+  background-image: url("/static/images/Line.png");
+  @extend %BaseToolButton;
+}
+#Box {
+  background-image: url("/static/images/Square.png");
+  @extend %BaseToolButton;
+}
+#Elipse {
+  background-image: url("/static/images/Circle.png");
+  @extend %BaseToolButton;
+}
+#Replace {
+  background-image: url("/static/images/Replace.png");
+  @extend %BaseToolButton;
+}
+#Flood {
+  background-image: url("/static/images/Bucket.png");
+  @extend %BaseToolButton;
+}
+#Erase {
+  background-image: url("/static/images/Erasure.png");
+  @extend %BaseToolButton;
+}
+
+// Smaller screen styles
+@media screen and (max-width: 992px) {
+  #canvasBack {
+    background: url("/static/images/greenBG.png");
+    border: 12px;
+    width: 256px;
+    height: 256px;
+  }
+
+  canvas {
+    touch-action: none;
+  }
+
+  p {
+    font-size: 24px;
+  }
+
+  h1 {
+    font-size: 48;
+  }
+
+  h2 {
+    font-size: 36;
+  }
+
+  form {
+    background-color: $col2;
+    border-radius: 1px;
+    padding: 4px;
+    font-size: 24pt;
+    input {
+      font-size: 24px;
+      width: 100%;
+    }
+    input[type="radio"] {
+      border: 0px;
+      width: 100%;
+      height: 1em;
+    }
+    input[type="checkbox"] {
+      border: 0px;
+      width: 100%;
+      height: 1em;
+    }
+  }
+
+  #searchForm {
+    max-width: 50%;
+  }
+
+  input[type="submit"] {
+  }
+
+  #SaveForm {
+    max-width: 40%;
+    max-height: 80%;
+    font-size: 16pt;
+  }
+
+  //Tooltips
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  //Portrait exclusive
+  @media only screen and (orientation: portrait) {
+    #container {
+      height: 100vw;
+
+      -webkit-transform: rotate(90deg);
+
+      -moz-transform: rotate(90deg);
+
+      -o-transform: rotate(90deg);
+
+      -ms-transform: rotate(90deg);
+
+      transform: rotate(90deg);
+
+      background: url("/static/images/greenBG.png");
+    }
+
+    #signUp {
+      width: 40%;
+      height: 30%;
+      font-size: 32pt;
+
+      input {
+        width: 70%;
+        height: 10%;
+      }
+
+      #signUpForm {
+        max-width: 410px;
+        margin: auto;
+
+        ul {
+          li {
+            font-size: 84pt;
+          }
+        }
+      }
+    }
+
+    #searchForm {
+      max-width: 70%;
+      font-size: 36pt;
+    }
+
+    p {
+      font-size: 24pt;
+    }
+  }
+  //Landscape exclusive
+  @media only screen and (orientation: landscape) {
+    #logout {
+      font-size: 25pt;
+    }
+
+    #searchForm {
+      max-width: 40%;
+    }
+  }
+}

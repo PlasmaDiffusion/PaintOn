@@ -5,7 +5,7 @@
         <script src="{% static 'java/SaveAndLoad.js' %}"></script>
 
 <body>
-        <div id="bg">
+
         <p>
         <a href= "{% url 'paint:defaultPage' %}"> Back </a>
         </p>
@@ -21,20 +21,15 @@
 
         </form>
 
-        
-</div>
-
+     
         <h1>
                         
                 {% for picture in pictures %}
                 
                 {% include 'pictureListTemplate.html' with count=pictures.count home=False %}
 
-                
-
                 {% endfor %}
 
-        
         </h1>
 
 

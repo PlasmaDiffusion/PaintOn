@@ -13,26 +13,23 @@
         
         <div id="container" onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
 
-                <h2 id = "gallery" style="position: absolute; left: 14%; top: 0%; width:700; height: 660;">
+                <h2 id = "gallery" style="position: absolute; left: 14%; top: 0%; width:710; height: 660;">
                 </h2>
 
-                <div id ="canvasBack" style="position: absolute; left: 20%; top: 7%; width:514; height: 514;">
+                <div id ="canvasBack" style="position: absolute; left: 20%; top: 7%;">
                 </div>
 
 
         <!-- Each canvas here is it's own layer. -->
-        <canvas id="Layer 1" value=1 width="512" height="512" style="border:2px solid #000000;
-        position: absolute; left: 20%; top: 7%; z-index: 0;">
+        <canvas id="Layer 1" class="canvasForPainting" value=1 width="512" height="512" style="z-index: 0;">
 
         </canvas>
 
-        <canvas id="Layer 2" value=2 width="512" height="512" style="border:2px solid #000000;
-        position: absolute; left: 20%; top: 7%; z-index: 1;">
+        <canvas id="Layer 2" class="canvasForPainting"  value=2 width="512" height="512" style="z-index: 1;">
 
         </canvas>
 
-        <canvas id="Layer 3" value=3 width="512" height="512" style="border:2px solid #000000;
-        position: absolute; left: 20%; top: 7%; z-index: 2;">
+        <canvas id="Layer 3" class="canvasForPainting"  value=3 width="512" height="512" style="z-index: 2;">
 
         </canvas>
 
@@ -63,7 +60,7 @@
         
         <button class="Save"> Save </button>
 
-        <button class="LayerAdd"> + </button>
+        <!--<button class="LayerAdd"> + </button>-->
         
 
         </div>

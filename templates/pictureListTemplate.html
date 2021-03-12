@@ -24,7 +24,7 @@
                         {{picture.date}}
                      
                         {% if count > 4 %}
-                            {% include 'canvasTemplate.html' with canvasSize=256 canvasSizeBG=258 %}
+                            {% include 'canvasTemplate.html' with canvasSize=256 canvasSizeBG=260 %}
                         {% else %}
                             {% include 'canvasTemplate.html' with canvasSize=512 canvasSizeBG=514  %}
                         {% endif %}
@@ -35,7 +35,8 @@
 
                         <a href="{% url 'paint:deleteDrawing' picture.id picture.owner  %}" id="deleteLink"> Remove </a>
                         <br>
-                        <p id = "likes">Likes: {{picture.likes}}</p>
+                        <p class = "likes"><i style="font-size:24px" class="fa">&#xf087;</i>
+                            {{picture.likes}}</p>
                         {% else %}
                             {% if picture.othersCanEdit %}
                             <a href="{% url 'paint:canvasView' picture.name picture.owner %}"> Load </a> &nbsp;
@@ -45,7 +46,7 @@
                         {% else %}
                             <a href="{% url 'paint:likeDrawing' picture.name picture.owner picture.id %}"> Like </a>
                         {% endif %}
-                        <p id = "likes">Likes: {{picture.likes}}</p>
+                        <p class = "likes"><i style="font-size:24px" class="fa">&#xf087;</i> {{picture.likes}}</p>
                         {% endifequal %}
 
                         </h2>
