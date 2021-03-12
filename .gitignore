@@ -4,4 +4,4 @@
 # Database
 *.sqlite3
 
-static/admin
+static/

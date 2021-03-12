@@ -1,23 +1,18 @@
-/*$col1: #94d793;
-$col2: #229079;
-$col3: #285556;*/
+$col1: #f8ce57;
+$col2: #d9a64c;
+$col3: #d9804c;
+$col4: #000000;
 
-$col1: rgb(197, 132, 132);
-$col2: #c78e23;
-$col3: rgb(128, 5, 5);
+//Import font
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
 
 %baseHeading {
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 36px;
   font-weight: bold;
   text-align: center;
-  text-shadow: 2px 2px grey;
   align-content: center;
-  color: $col2;
-  //background: url("/static/images/greenBG.png");
-  background-color: $col1;
-  outline: 2px as $col3;
-  //border:2px outset darken($col1, 30%);
+  color: $col4;
   border-radius: 8px;
   padding: 4px;
   margin: auto;
@@ -28,15 +23,40 @@ h2 {
   @extend %baseHeading;
   font-size: 24px;
   border: 4px;
-  text-shadow: 2px 2px black;
   background: none;
 }
 
+.canvasForPainting {
+  border: 4px solid #000000;
+  position: absolute;
+  left: 20%;
+  top: 7%;
+}
+
+.canvasForGallery {
+  border: 4px solid #000000;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+//The site's background
+body {
+  background-image: linear-gradient(
+    to right top,
+    #d9a64c,
+    #da9c4a,
+    #db934a,
+    #da894b,
+    #d9804c
+  );
+}
+
+//The gallery will have a bunch of canvasesof other's art, plus links to like/download it
 #gallery {
   @extend %baseHeading;
   font-size: 24px;
   border: 4px;
-  text-shadow: 2px 2px black;
   background-color: $col2;
 
   border: black 12px;
@@ -45,12 +65,12 @@ h2 {
   border-radius: 4px;
 
   a {
-    background-color: rgb(163, 112, 18);
+    background-color: $col2;
   }
 
   a:hover {
     color: white;
-    background-color: rgb(216, 167, 8);
+    background-color: $col1;
     transition: background-color 0.5s;
     text-decoration: none;
   }
@@ -60,40 +80,40 @@ h3 {
   @extend %baseHeading;
   font-size: 20px;
   border: 4px;
-  text-shadow: 2px 2px black;
 }
 
 h1 {
   @extend %baseHeading;
   font-size: 36px;
   border: 4px;
-  text-shadow: 2px 2px black;
-
-  //background-image: linear-gradient(to right top, #d1cd6b, #dad67e, #e3df91, #ebe8a4, #f4f1b7, #f7f3b7, #f9f4b6, #fcf6b6, #fbf1a1, #faeb8c, #fbe576, #fbdf5f);
-  background: linear-gradient(to bottom right, #ffdf99 0%, #cc6600 100%);
 }
 
 p {
   @extend %baseHeading;
   font-size: 12px;
-  background-color: $col1;
+  background-color: $col2;
+  border: 2px outset $col1;
   outline: none;
   border-radius: 4px;
   width: 400px;
   text-shadow: none;
 }
 
+//Links that will look like buttons
 a {
   color: black;
   text-shadow: none;
-  background-color: rgb(211, 180, 8);
-  outline-width: 4px;
+  background-color: $col1;
+  margin: auto;
+  text-align: center;
+  border: 1px solid $col2;
   border-radius: 4px;
 }
 
 p {
   a {
     padding: 4px;
+    font-size: 24px;
   }
 }
 
@@ -104,66 +124,134 @@ a:hover {
   text-decoration: none;
 }
 
+// Landing page ------------------------------------------
+#intro {
+  margin-top: 10rem;
+  animation-name: fade;
+  animation-duration: 4s;
+
+  h1 {
+    font-style: italic;
+    font-size: 3rem;
+  }
+
+  h1,
+  p,
+  div {
+    margin-left: 10rem;
+    text-align: left;
+  }
+
+  p,
+  div {
+    font-size: 1.5rem;
+  }
+
+  button,
+  a {
+    font-size: 2rem;
+    border: 2px solid $col1;
+    color: $col1;
+    border-radius: 4px;
+    background: none;
+  }
+
+  button {
+    background-color: $col1;
+    color: $col4;
+    cursor: pointer;
+  }
+
+  button:hover {
+    color: black;
+  }
+
+  a {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+  }
+
+  a:hover {
+    background-color: $col2;
+  }
+}
+
+#paintClipArt {
+  animation-name: goDown;
+  animation-duration: 2s;
+  position: absolute;
+  width: 20%;
+  top: 140;
+  left: 700;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes goDown {
+  from {
+    transform: translate(0, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0%);
+    opacity: 1;
+  }
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+//Uls are found in forms
 ul {
-  font-size: 12pt;
+  font-size: 10pt;
 }
 
 #bg {
-  background-image: linear-gradient(
-    to right top,
-    #d1cd6b,
-    #dad67e,
-    #e3df91,
-    #ebe8a4,
-    #f4f1b7,
-    #f7f3b7,
-    #f9f4b6,
-    #fcf6b6,
-    #fbf1a1,
-    #faeb8c,
-    #fbe576,
-    #fbdf5f
-  );
+  background-color: $col1;
+
   margin-bottom: 32px;
 }
 
-#bgCanvas {
-  background-image: linear-gradient(
-    to right top,
-    #d1cd6b,
-    #dad67e,
-    #e3df91,
-    #ebe8a4,
-    #f4f1b7,
-    #f7f3b7,
-    #f9f4b6,
-    #fcf6b6,
-    #fbf1a1,
-    #faeb8c,
-    #fbe576,
-    #fbdf5f
-  );
+#bg2 {
+  background-color: $col2;
 }
 
+//Background box that goes behind the canvases
+#bgCanvas {
+  background-color: $col1;
+}
+
+//Background checkerboard that's directly behind the canvas
 #canvasBack {
   background: url("/static/images/greenBG.png");
   border: 12px;
-  width: 512px;
-  height: 512px;
+  width: 516px;
+  height: 516px;
   margin: auto;
 }
 
-#likes {
+.likes {
   width: 150px;
   margin: auto;
+  margin-top: 5px;
   //width: 50%;
   background-color: lighten($col2, 10%);
   padding: 10px;
   border-radius: 8px;
+  color: black;
+  font-size: 1.5rem;
 }
 
 #logout {
   width: 300px;
+  font-size: 16px;
 }
 
 .tab {
@@ -174,6 +262,7 @@ ul {
   padding-left: 90px;
 }
 
+// Tool buttons ---------------------------------------------------------------------------------------------------------
 .Colour,
 .FillOrOutline,
 #Erase {
@@ -193,36 +282,35 @@ ul {
 .LayerAdd {
   background-color: #dd6749;
   border: solid 1px;
+  border-radius: 4px;
+  border: 4px outset $col3;
 }
 
 .LayerAdd:hover {
   background-color: darken(#dd6749, 20%);
   transition: background-color 0.5s;
-  border: solid 1px;
 }
 
 .LayerChange {
   background-color: #ddc249;
-  border: solid 1px;
+  border: 4px outset $col1;
 }
 
 .LayerChange:hover {
   background-color: darken(#ddc249, 20%);
   transition: background-color 0.5s;
-  border: solid 1px;
 }
 
 .Exit,
 .Save {
   background-color: #dd8449;
-  border: solid 1px;
+  border: 4px outset $col3;
 }
 
 .Exit:hover,
 .Save:hover {
   background-color: darken(#dd8449, 20%);
   transition: background-color 0.5s;
-  border: solid 1px;
 }
 
 #Pallette {
@@ -285,12 +373,7 @@ ul {
   padding: 1px;
 }
 
-body {
-  background: url("/static/images/greenBG.png");
-  background-color: darken($col1, 21%);
-  color: white;
-  margin: 4px;
-}
+//Forms -----------------------------------------------------------------------------------------------------------
 
 table {
   text-align: center;
@@ -306,7 +389,16 @@ form,
   border-radius: 1px;
   padding: 4px;
   max-width: 200px;
-  border: solid 1px;
+  border: 2px outset $col1;
+  font-family: sans-serif;
+}
+
+label {
+  font-size: 16px;
+}
+
+input {
+  font-family: sans-serif;
 }
 
 #fakeForm {
@@ -332,15 +424,22 @@ form,
 input[type="submit"],
 #demoButton {
   color: white;
-  background-color: rgb(167, 129, 4);
+  background-color: $col3;
   transition: background-color 0.5s;
-  border: solid 1px;
+  border: outset 1px $col3;
+  border-radius: 4px;
 }
 
 input[type="submit"]:hover,
 #demoButton:hover {
   color: lighten($col2, 21%);
   background-color: $col2;
+}
+
+#brushAlphaBox,
+#brushSizeText,
+#tickBoxText {
+  color: white;
 }
 
 @media screen and (max-height: 500px) {
@@ -351,7 +450,7 @@ input[type="submit"]:hover,
   }
 }
 
-//Button icons
+//Button icons ----------------------------------------------------------------------------------------------------
 %BaseToolButton {
   background-repeat: no-repeat;
   background-origin: padding-box;
@@ -391,13 +490,35 @@ input[type="submit"]:hover,
   @extend %BaseToolButton;
 }
 
-// Smaller screen styles
+#phoneWarning {
+  display: none;
+}
+
+// Smaller screen styles ----------------------------------------------------------------------
 @media screen and (max-width: 992px) {
   #canvasBack {
     background: url("/static/images/greenBG.png");
     border: 12px;
-    width: 256px;
-    height: 256px;
+  }
+
+  #intro {
+    h1 {
+      font-size: 3.5rem;
+    }
+    p,
+    button,
+    a {
+      font-size: 3rem;
+    }
+
+    p {
+      width: 60%;
+    }
+  }
+
+  #paintClipArt {
+    top: 400;
+    left: 770;
   }
 
   canvas {
@@ -435,13 +556,17 @@ input[type="submit"]:hover,
       width: 100%;
       height: 1em;
     }
+    label {
+      font-size: 36px;
+    }
+  }
+
+  ul {
+    font-size: 14pt;
   }
 
   #searchForm {
     max-width: 50%;
-  }
-
-  input[type="submit"] {
   }
 
   #SaveForm {
@@ -490,7 +615,7 @@ input[type="submit"]:hover,
     opacity: 1;
   }
 
-  //Portrait exclusive
+  //Portrait exclusive stuff (Phone users need to use the paint tool in landsacape ---------------------------------------------------------
   @media only screen and (orientation: portrait) {
     #container {
       height: 100vw;
@@ -506,6 +631,17 @@ input[type="submit"]:hover,
       transform: rotate(90deg);
 
       background: url("/static/images/greenBG.png");
+    }
+
+    #phoneWarning {
+      display: block;
+      font-size: 3rem;
+      position: fixed;
+      padding-top: 500px;
+      z-index: 2;
+      background-color: $col3;
+      width: 100%;
+      height: 100%;
     }
 
     #signUp {
